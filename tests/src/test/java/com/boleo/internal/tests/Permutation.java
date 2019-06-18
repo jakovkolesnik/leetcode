@@ -10,7 +10,7 @@ public class Permutation {
     @Test
     public void testDistinct() {
         System.out.println("DISTINCT");
-        Collection<List<Integer>> distinct = distinctPermutation(new int[]{1, 1, 2, 2});
+        Collection<List<Integer>> distinct = distinctPermutations(new int[]{1, 1, 2, 2});
         for (List<Integer> list : distinct) {
             System.out.println(list);
         }
@@ -19,13 +19,13 @@ public class Permutation {
     @Test
     public void testAll() {
         System.out.println("ALL");
-        Collection<List<Integer>> all = allPermutation(new int[]{1, 1, 2, 2});
+        Collection<List<Integer>> all = allPermutations(new int[]{1, 1, 2, 2});
         for (List<Integer> list : all) {
             System.out.println(list);
         }
     }
 
-    public Collection<List<Integer>> distinctPermutation(int[] input) {
+    public Collection<List<Integer>> distinctPermutations(int[] input) {
         Map<Long, List<Integer>> result = new HashMap<>();
         Map<Integer, Integer> map = new HashMap<>();
         Integer counter = 0;
@@ -36,7 +36,7 @@ public class Permutation {
             }
         }
 
-        allPermutation(input).forEach(p -> result.put(calculateValue(map, p), p));
+        allPermutations(input).forEach(p -> result.put(calculateValue(map, p), p));
         return result.values();
     }
 
@@ -51,7 +51,7 @@ public class Permutation {
         return result;
     }
 
-    public List<List<Integer>> allPermutation(int[] input) {
+    public List<List<Integer>> allPermutations(int[] input) {
         if (input == null) {
             return null;
         }
