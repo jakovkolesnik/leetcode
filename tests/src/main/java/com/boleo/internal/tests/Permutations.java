@@ -59,13 +59,15 @@ public class Permutations {
             return allPermutations(input);
         }
 
-        //re-create input array with distinct elements first eg input abacba -> abcaab
+        //re-create input array with distinct elements first eg input 121321 -> 123112
         int[] sortedInput = new int[input.length];
         int index = 0;
+        //add distinct first
         for (Integer element : distinct.keySet()) {
             sortedInput[index] = element;
             index++;
         }
+        //add the rest
         for (Integer element : distinct.keySet()) {
             int count = distinct.get(element);
             for (int i = 1; i < count; i++) {
@@ -78,10 +80,12 @@ public class Permutations {
     }
 
     private List<int[]> calculateDistinct(int[] sortedInput, int distinctSize) {
-        Map<Integer, Integer> weights = new HashMap<>();
+        Map<Integer, Integer> digits = new HashMap<>();
+        //get distinct elements and assign them integer digits
         for (int i = 0; i < distinctSize; i++) {
-            weights.put(sortedInput[i], i);
+            digits.put(sortedInput[i], i);
         }
+        //pre-calculate base powers
         long pow = 1;
         long[] powers = new long[sortedInput.length];
         powers[0] = 1;
@@ -89,13 +93,14 @@ public class Permutations {
             pow = pow * distinctSize;
             powers[i] = pow;
         }
-
+        //to start, get permutations of distinct elements
         List<int[]> result = allPermutations(sortedInput, 0, distinctSize - 1);
-        Set<Long> values = new HashSet<>();
+        //assign them their score
+        Set<Long> scores = new HashSet<>();
         for (int[] entry : result) {
-            values.add(calculateValue(entry, weights, powers));
+            scores.add(calculateValue(entry, digits, powers));
         }
-
+        //calculate the rest
         for (int i = distinctSize; i < sortedInput.length; i++) {
             int numberOfPermutations = result.size();
             int insertPosition = i - 1;
@@ -109,8 +114,9 @@ public class Permutations {
                     }
                     permutation[i] = previousValueToSwap;
                     permutation[insertPosition] = swapValueFromTheRight;
-                    long value = calculateValue(permutation, weights, powers);
-                    if (values.add(value)) {
+                    //only add this permutation if it is unique
+                    long value = calculateValue(permutation, digits, powers);
+                    if (scores.add(value)) {
                         result.add(permutation);
                     }
                 }
@@ -120,10 +126,10 @@ public class Permutations {
         return result;
     }
 
-    private Long calculateValue(int[] input, Map<Integer, Integer> weights, long[] powers) {
+    private Long calculateValue(int[] input, Map<Integer, Integer> digits, long[] powers) {
         long result = 0L;
         for (int i = 0; i < input.length; i++) {
-            result = result + weights.get(input[i]) * powers[i];
+            result = result + digits.get(input[i]) * powers[i];
         }
         return result;
     }
