@@ -30,11 +30,7 @@ public class PossibleTermsToMakeSum {
             children.clear();
             for (int i = 0; i < sortedTerms.size(); i++) {
                 int childValue = nodeValue - terms[i];
-                if (deadEnds.contains(childValue)) {
-                    continue;
-                }
-                if (childValue < 0) {
-                    deadEnds.add(childValue);
+                if (childValue < 0 || deadEnds.contains(childValue)) {
                     continue;
                 }
                 children.add(childValue);
@@ -65,9 +61,7 @@ public class PossibleTermsToMakeSum {
                 node.getChildren().add(nodes.get(minChild));
                 nodes.put(nodeValue, node);
                 stack.pop();
-                System.out.println(node);
             }
-            Arrays.toString()
         }
         Node node = nodes.get(goal);
         if (node == null) {
@@ -133,7 +127,8 @@ public class PossibleTermsToMakeSum {
         }
 
         @Override
-        public int hashCode() {            return Objects.hash(value, children, numberOfSteps);
+        public int hashCode() {
+            return Objects.hash(value, children, numberOfSteps);
         }
     }
 }

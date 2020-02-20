@@ -30,11 +30,7 @@ public class CoinChange {
             children.clear();
             for (int i = 0; i < sortedTerms.size(); i++) {
                 int childValue = nodeValue - terms[i];
-                if (deadEnds.contains(childValue)) {
-                    continue;
-                }
-                if (childValue < 0) {
-                    deadEnds.add(childValue);
+                if (childValue < 0 || deadEnds.contains(childValue)) {
                     continue;
                 }
                 children.add(childValue);
@@ -65,7 +61,6 @@ public class CoinChange {
                 node.getChildren().add(nodes.get(minChild));
                 nodes.put(nodeValue, node);
                 stack.pop();
-                System.out.println(node);
             }
         }
         Node node = nodes.get(goal);
@@ -85,7 +80,7 @@ public class CoinChange {
 
     @Test
     void figureOutTerms() {
-        int[] terms = new int[]{1,2,5, 10, 20, 50};
+        int[] terms = new int[]{1, 2, 5, 10, 20, 50};
         System.out.println(Arrays.toString(getChange(terms, 192)));
     }
 
