@@ -1,0 +1,278 @@
+{
+	"$schema":		"http://json-schema.org/draft-07/schema",
+	"id":			"etf-composition.json",
+	"title" :		"Ultumus ETF client schema",
+	"description" :	"Schema used to document and validate Ultumus ETF composition outbound API data",
+	"definitions": {
+		"performance": {
+			"type": "object",
+			"properties": {
+				"fundAum": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"shareClassAum": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"ocf": { "type": "number" },
+				"nav": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"officialNav": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"indexTotalReturn": { "type": "number" },
+				"sharesOutstandingDelta": { "type": "number" },
+				"sharesOutstanding": { "type": "number" },
+				"creationUnitSize": { "type": "number" },
+				"calculationUnit": { "type": "number" },
+				"actualLeverageRatio": { "type": "number" },
+				"expenseRatio": { "type": "number" },
+				"factor": { "type": "number" },
+				"fx": { "type": "array", "items": { "$ref": "reference.json#/definitions/fx" } },
+				"flow": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"lastTradedPrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"metalEntitlement": { "type": "number" },
+				"apportionmentRatio": { "type": "number" },
+				"tradeDate": { "type": "string", "format": "date" },
+				"settlementDate": { "type": "string", "format": "date" }
+			},
+			"additionalProperties": false
+		},
+		"trackedIndex": {
+			"type": "object",
+			"properties": {
+				"indexName": { "type": "string" },
+				"indexRic": { "type": "string" },
+				"indexTicker": { "type": "string" },
+				"shortName": { "type": "string" },
+				"fullName": { "type": "string" },
+				"alternativeName": { "type": "string" },
+				"assetType": { "type": "string" },
+				"underlyingAssetClass": { "type": "string" },
+				"gicsCode": { "type": "string" },
+				"currency": { "type": "string" },
+				"domicility": { "type": "string" },
+				"countryOfIncorporation": { "type": "string" },
+				"jurisdiction": { "type": "string" },
+				"identifiers": { "$ref": "reference.json#/definitions/identifiers" },
+				"etfToIndexRatio": { "type": "number" },
+				"closePrice": { "type": "number" },
+				"annualModifiedDuration": { "type": "number" },
+				"closeDate": { "type": "string", "format": "date" },
+				"convexity": { "type": "number" },
+				"coupon": { "type": "number" },
+				"dv01": { "type": "number" },
+				"durationWithCash": { "type": "number" },
+				"durationWithoutCash": { "type": "number" },
+				"cashPaymentShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"marketValueShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"realMarketValueShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"yieldToMaturity": { "type": "number" }
+			},
+			"additionalProperties": false
+		},
+		"cash": {
+			"type": "object",
+			"properties": {
+				"hedgeCash": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"totalCash": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"totalCashWeight": { "type": "number" },
+				"reclaimCash": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"navCash": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"estimatedCash": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"estimatedCashInLieu": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"cashInLieu": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"dividend": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } }
+			},
+			"additionalProperties": false
+		},
+		"compositionAsset": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"security": { "$ref": "reference.json#/definitions/securityListing" },
+				"weight": { "type": "number" },
+				"numberOfUnits": { "type": "number" },
+				"numberOfContracts": { "type": "number" },
+				"newSecurity": { "type": "boolean" },
+				"changedSecurity": { "type": "boolean" },
+				"assetClass": { "type": "string" },
+				"basketHolding": { "type": "string" },
+				"localNotional": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"listingNotional": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"providerClosePrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"providerOpenPrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"providerPrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"officialClosePrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"priceAdjustmentFactor": { "type": "number" },
+				"priceAdjustment": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"t1AdjustedClosePrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"t1CashAdjustedClosePrice": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"ordinaryDividendAmount": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"issueDividendMarketValue": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"taxRate": { "type": "number" },
+				"factor": { "type": "number" },
+				"providerFx": { "type": "number" },
+				"parAdjustmentFactor": { "type": "number" },
+				"corporateAction": { "type": "array", "items": { "$ref": "reference.json#/definitions/corporateAction" } },
+				"forwardRate":     {
+					"type": "object",
+					"properties": {
+						"expiryDate": { "type": "string", "format": "date" },
+						"fromCcy": { "type": "string" },
+						"toCcy": { "type": "string" },
+						"rate": { "type": "number" }
+					},
+				"additionalProperties": false
+				},
+				"hedgeType": { "type": "string" },
+				"nominal": { "$ref": "reference.json#/definitions/money" },
+				"nominalShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"priceDirtyShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"priceDirtyLocalCurrency": { "$ref": "reference.json#/definitions/money" },
+				"priceCleanLocalCurrency": { "$ref": "reference.json#/definitions/money" },
+				"priceCleanShareClassCurrency": { "$ref": "reference.json#/definitions/money" },
+				"indexCompositionValuation":     {
+					"type": "object",
+					"properties": {
+						"localCurrencyMarketValue": { "$ref": "reference.json#/definitions/money" },
+						"shareClassCurrencyMarketValue": { "$ref": "reference.json#/definitions/money" },
+						"localCurrencyRealMarketValue": { "$ref": "reference.json#/definitions/money" },
+						"shareClassCurrencyRealMarketValue": { "$ref": "reference.json#/definitions/money" },
+						"numberOfBondsInIndex": { "type": "number" }
+					}
+				},
+				"pricingAnalytics": { "$ref": "reference.json#/definitions/pricingAnalytics" }
+			},
+			"additionalProperties": false,
+			"required" : [ "security", "assetClass" ]
+		},
+		"currencyHedge": {
+			"type": "object",
+			"properties": {
+				"name": { "type": "string" },
+				"expiryDate": { "type": "string", "format": "date" },
+				"fromCcy": { "type": "string" },
+				"toCcy": { "type": "string" },
+				"forwardRate": { "type": "number" },
+				"nominal": { "$ref": "reference.json#/definitions/money" },
+				"spotRate": { "type": "number" },
+				"price": { "$ref": "reference.json#/definitions/money" },
+				"listingNotional": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } }
+			},
+			"additionalProperties": false
+		},
+		"basket": {
+			"type": "object",
+			"properties": {
+				"type": { "type": "string" },
+				"numberOfAssets": { "type": "number" },
+				"cash":			{ "$ref": "#/definitions/cash" },
+				"assets": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/compositionAsset" }
+				},
+				"assetsRef":	{ "$ref": "reference.json#/definitions/link" },
+				"currencyHedges": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/currencyHedge" }
+				}
+			},
+			"additionalProperties": false,
+			"required" : [ "type", "numberOfAssets" ]
+		},
+		"baskets": {
+			"type": "object",
+			"properties": {
+				"tracking":	{ "$ref": "#/definitions/basket" },
+				"creation":		{ "$ref": "#/definitions/basket" },
+				"enhanced":		{ "$ref": "#/definitions/basket" },
+				"redemption":	{ "$ref": "#/definitions/basket" },
+				"oddLots":	{ "$ref": "#/definitions/basket" },
+				"noneDeliverable":	{ "$ref": "#/definitions/basket" },
+				"delta":	{ "$ref": "#/definitions/basket" }
+			},
+			"additionalProperties": false
+		},
+		"composition": {
+			"type": "object",
+			"properties": {
+				"etf":	{
+					"anyOf": [
+						{ "$ref": "etf-reference.json#/definitions/etf" },
+						{ "$ref": "reference.json#/definitions/link" }
+					]
+				},
+				"navDate": { "type": "string", "format": "date" },
+				"referenceDate": { "type": "string", "format": "date" },
+				"valuationCurrency":	{ "type": "string", "format": "currency" },
+				"headerOnly":	{ "type": "boolean" },
+				"version":	{ "type": "number" },
+				"performance":	{ "$ref": "#/definitions/performance" },
+				"fx": { "type": "array", "items": { "$ref": "reference.json#/definitions/fx" } },
+				"providerFx": { "type": "array", "items": { "$ref": "reference.json#/definitions/fx" } },
+				"corporateAction": { "type": "array", "items": { "$ref": "reference.json#/definitions/corporateAction" } },
+				"baskets":		{ "$ref": "#/definitions/baskets" },
+				"calculationNotes": {
+					"type": "array",
+					"items": { "$ref": "reference.json#/definitions/note" }
+				},
+				"trackedIndex":	{ "$ref": "#/definitions/trackedIndex" },
+				"capitalGainsTax":	{ "type": "array", "items": { "$ref": "reference.json#/definitions/taxRate" } }
+			},
+			"additionalProperties": false,
+			"required" : [ "etf", "referenceDate" ]
+		},
+		"streamEntry": {
+			"type": "object",
+			"properties": {
+				"referenceDate": { "type": "string", "format": "date" },
+				"navDate": { "type": "string", "format": "date" },
+				"navSourceDate": { "type": "string", "format": "date" },
+				"valuationCurrency":	{ "type": "string", "format": "currency" },
+				"performance":	{ "$ref": "#/definitions/performance" },
+				"fx": { "type": "array", "items": { "$ref": "reference.json#/definitions/fx" } },
+				"lastUpdated":	{ "type": "string", "format": "date-time" },
+				"calculationNotes": {
+					"type": "array",
+					"items": { "$ref": "reference.json#/definitions/note" }
+				},
+				"comment": {
+					"type": "object",
+					"properties": {
+						"message":	{ "type": "string" },
+						"visible":	{ "type": "boolean" }
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required" : [ "navDate", "performance" ]
+		},
+		"stream": {
+			"type": "object",
+			"properties": {
+				"etf":	{
+					"anyOf": [
+						{ "$ref": "etf-reference.json#/definitions/etf" },
+						{ "$ref": "reference.json#/definitions/link" }
+					]
+				},
+				"fromDate":	{ "type": "string", "format": "date" },
+				"toDate":	{ "type": "string", "format": "date" },
+				"nextTradeDate":	{ "type": "string", "format": "date" },
+				"anticipatedNavPublishDate":	{ "type": "string", "format": "date" },
+				"nextDividendDate":	{ "type": "string", "format": "date" },
+				"lastUpdated":	{ "type": "string", "format": "date-time" },
+				"stream": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/streamEntry" }
+				}
+			},
+			"additionalProperties": false,
+			"required" : [ "etf", "stream" ]
+		}
+	}
+}
+

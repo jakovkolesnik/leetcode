@@ -1,0 +1,1118 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"id": "https://uatapi.ultumus.com/ULT/app/v1/docs/schemas/reference.json",
+	"title": "Ultumus client schema reference data types",
+	"description": "Schema used to document and validate Ultumus reference outbound API data",
+	"definitions": {
+		"link": {
+			"type": "object",
+			"properties": {
+				"href": {
+					"type": "string"
+				},
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"alternativeName": {
+					"type": "string"
+				},
+				"fromDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"toDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"headerOnly": {
+					"type": "boolean"
+				},
+				"status": {
+					"type": "string"
+				},
+				"version": {
+					"type": "number"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
+				"info": {
+					"type": "object",
+					"additionalProperties": true
+				},
+				"referenceDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"lastTPlusChangeDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"dataSource": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"href"
+			]
+		},
+		"links": {
+			"type": "object",
+			"properties": {
+				"rawFile": {
+					"$ref": "#/definitions/link"
+				},
+				"summary": {
+					"$ref": "#/definitions/link"
+				},
+				"first": {
+					"$ref": "#/definitions/link"
+				},
+				"last": {
+					"$ref": "#/definitions/link"
+				},
+				"prev": {
+					"$ref": "#/definitions/link"
+				},
+				"next": {
+					"$ref": "#/definitions/link"
+				}
+			},
+			"additionalProperties": true
+		},
+		"tPlusDetail": {
+			"type": "object",
+			"properties": {
+				"TPlusDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"refDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"TPlusDate",
+				"refDate",
+				"href"
+			]
+		},
+		"address": {
+			"type": "object",
+			"properties": {
+				"line1": {
+					"type": "string"
+				},
+				"line2": {
+					"type": "string"
+				},
+				"line3": {
+					"type": "string"
+				},
+				"line4": {
+					"type": "string"
+				},
+				"postalCode": {
+					"type": "string"
+				},
+				"city": {
+					"type": "string"
+				},
+				"region": {
+					"type": "string"
+				},
+				"country": {
+					"type": "string",
+					"format": "country"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"line1"
+			]
+		},
+		"legalEntity": {
+			"type": "object",
+			"properties": {
+				"lei": {
+					"type": "string",
+					"format": "LEI"
+				},
+				"previousLeis": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "LEI"
+					}
+				},
+				"shortName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				},
+				"jurisdiction": {
+					"type": "string",
+					"format": "country"
+				},
+				"headquartersAddress": {
+					"$ref": "#/definitions/address"
+				},
+				"legalAddress": {
+					"$ref": "#/definitions/address"
+				},
+				"legalEntityStatus": {
+					"type": "string"
+				},
+				"registrationLastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationNextRenewal": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationStatus": {
+					"type": "string"
+				},
+				"registrationValidationSources": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"spread": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"bidSpread": {
+					"type": "number"
+				},
+				"offerSpread": {
+					"type": "number"
+				},
+				"thresholdCash": {
+					"type": "number"
+				}
+			},
+			"additionalProperties": false
+		},
+		"identifiers": {
+			"type": "object",
+			"properties": {
+				"BB": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"BBG": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"Bloomberg": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"CUSIP": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "CUSIP"
+					}
+				},
+				"CCY": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "currency"
+					}
+				},
+				"CQG": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"FIGI": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 12,
+						"maxLength": 12
+					}
+				},
+				"ISIN": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "ISIN"
+					}
+				},
+				"LEI": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "LEI"
+					}
+				},
+				"LXID": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"MIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"OperatingMIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"ProviderCode": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"RefListingId": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"Reuters": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"RealTimeRIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"RIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"SEDOL": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"format": "SEDOL"
+					}
+				},
+				"SEDOLMIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"Ticker": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"UIC": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"ULTID": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"UltIV": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 11,
+						"maxLength": 11
+					}
+				},
+				"UltIX": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 11,
+						"maxLength": 11
+					}
+				},
+				"UltShareClassID": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"minLength": 10,
+						"maxLength": 10
+					}
+				},
+				"UMTF": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"VALOREN": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"WERTPAPIER": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"holiday": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": [
+						"Full",
+						"Partial",
+						"Weekend"
+					]
+				},
+				"holidayDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"date"
+			]
+		},
+		"holidaySet": {
+			"type": "object",
+			"properties": {
+				"holidays": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/holiday"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"date"
+			]
+		},
+		"exchange": {
+			"type": "object",
+			"properties": {
+				"shortName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				},
+				"mtf": {
+					"type": "boolean"
+				},
+				"country": {
+					"type": "string",
+					"format": "country"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
+				"holidays": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/holiday"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"security": {
+			"type": "object",
+			"properties": {
+				"shortName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				},
+				"alternativeName": {
+					"type": "string"
+				},
+				"assetType": {
+					"type": "string"
+				},
+				"underlyingAssetClass": {
+					"type": "string"
+				},
+				"gicsCode": {
+					"type": "string"
+				},
+				"currency": {
+					"type": "string"
+				},
+				"domicility": {
+					"type": "string"
+				},
+				"countryOfIncorporation": {
+					"type": "string"
+				},
+				"jurisdiction": {
+					"type": "string"
+				},
+				"bbgIssuerClass": {
+					"type": "string"
+				},
+				"bbgRating": {
+					"type": "string"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				}
+			},
+			"additionalProperties": false
+		},
+		"securityListing": {
+			"type": "object",
+			"properties": {
+				"shortName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				},
+				"alternativeName": {
+					"type": "string"
+				},
+				"assetType": {
+					"type": "string"
+				},
+				"underlyingAssetClass": {
+					"type": "string"
+				},
+				"gicsCode": {
+					"type": "string"
+				},
+				"currency": {
+					"type": "string"
+				},
+				"domicility": {
+					"type": "string"
+				},
+				"countryOfIncorporation": {
+					"type": "string"
+				},
+				"jurisdiction": {
+					"type": "string"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
+				"status": {
+					"type": "string"
+				},
+				"referenceStatus": {
+					"type": "string"
+				},
+				"suspensionType": {
+					"type": "string"
+				},
+				"primary": {
+					"type": "boolean"
+				},
+				"lotSize": {
+					"type": "number"
+				},
+				"couponRate": {
+					"type": "number"
+				},
+				"targetRebalanceRatio": {
+					"type": "number"
+				},
+				"nextRebalanceDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"indexFactor": {
+					"type": "number"
+				},
+				"listingDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"firstTradeDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"delistingDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"maturityDate": {
+					"type": "string",
+					"pattern": "(\\d{4}-[01]\\d|\\d{4}-[01]\\d-[0-3]\\d)"
+				},
+				"couponPaymentDate": {
+					"type": "string",
+					"pattern": "(\\d{4}-[01]\\d|\\d{4}-[01]\\d-[0-3]\\d)"
+				},
+				"exchange": {
+					"$ref": "#/definitions/exchange"
+				},
+				"CFICode": {
+					"type": "string"
+				},
+				"csdCode": {
+					"type": "string"
+				},
+				"csdName": {
+					"type": "string"
+				},
+				"euronextShortName": {
+					"type": "string"
+				},
+				"FISN": {
+					"type": "string"
+				},
+				"tickSize": {
+					"type": "number"
+				},
+				"contractSize": {
+					"type": "number"
+				},
+				"thirtyDayAverageVolume": {
+					"type": "number"
+				},
+				"oneEightyDayAverageVolume": {
+					"type": "number"
+				},
+				"nextTradeDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"effectiveDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"bbgIssuerClass": {
+					"type": "string"
+				},
+				"bbgRating": {
+					"type": "string"
+				},
+				"bbgSecurityType": {
+					"type": "string"
+				},
+				"markitRating": {
+					"type": "string"
+				},
+				"markitIssuerClass": {
+					"type": "string"
+				},
+				"inavIdentifiers": {
+					"$ref": "reference.json#/definitions/identifiers"
+				},
+				"officialClosePrice": {
+					"$ref": "reference.json#/definitions/money"
+				}
+			},
+			"additionalProperties": false
+		},
+		"index": {
+			"type": "object",
+			"properties": {
+				"shortName": {
+					"type": "string"
+				},
+				"fullName": {
+					"type": "string"
+				},
+				"alternativeName": {
+					"type": "string"
+				},
+				"assetType": {
+					"type": "string"
+				},
+				"underlyingAssetClass": {
+					"type": "string"
+				},
+				"gicsCode": {
+					"type": "string"
+				},
+				"currency": {
+					"type": "string"
+				},
+				"domicility": {
+					"type": "string"
+				},
+				"countryOfIncorporation": {
+					"type": "string"
+				},
+				"jurisdiction": {
+					"type": "string"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
+				"indexType": {
+					"type": "string"
+				},
+				"indexGroup": {
+					"type": "string"
+				},
+				"provider": {
+					"type": "string"
+				},
+				"providerLei": {
+					"type": "string",
+					"format": "LEI"
+				}
+			},
+			"additionalProperties": false
+		},
+		"corporateAction": {
+			"type": "object",
+			"properties": {
+				"currency": {
+					"type": "string"
+				},
+				"eventType": {
+					"type": "string"
+				},
+				"payType": {
+					"type": "string"
+				},
+				"grossDividendRate": {
+					"type": "number"
+				},
+				"netDividendRate": {
+					"type": "number"
+				},
+				"exDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"note": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"numericDatum": {
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "number"
+				},
+				"confidence": {
+					"type": "string"
+				},
+				"notes": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"money": {
+			"type": "object",
+			"properties": {
+				"amount": {
+					"type": "number"
+				},
+				"currency": {
+					"type": "string",
+					"format": "currency"
+				},
+				"confidence": {
+					"type": "string"
+				},
+				"notes": {
+					"type": "string"
+				},
+				"priceDate": {
+					"type": "string",
+					"format": "date"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"amount",
+				"currency"
+			]
+		},
+		"currency": {
+			"type": "object",
+			"properties": {
+				"currencyCode": {
+					"type": "string",
+					"format": "currency"
+				},
+				"numericCode": {
+					"type": "number"
+				},
+				"defaultFractionDigits": {
+					"type": "number"
+				},
+				"country": {
+					"type": "string",
+					"format": "country"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"currencyCode"
+			]
+		},
+		"region": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"code": {
+					"type": "number"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"code",
+				"name"
+			]
+		},
+		"subRegion": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"code": {
+					"type": "number"
+				},
+				"name": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"code",
+				"name"
+			]
+		},
+		"country": {
+			"type": "object",
+			"properties": {
+				"alpha2CountryCode": {
+					"type": "string"
+				},
+				"alpha3CountryCode": {
+					"type": "string"
+				},
+				"numericCountryCode": {
+					"type": "number"
+				},
+				"name": {
+					"type": "string"
+				},
+				"developmentLevel": {
+					"type": "string"
+				},
+				"region": {
+					"$ref": "#/definitions/region"
+				},
+				"subRegion": {
+					"$ref": "#/definitions/subRegion"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"alpha2CountryCode",
+				"name"
+			]
+		},
+		"classification": {
+			"type": "object",
+			"properties": {
+				"code": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"level": {
+					"type": "number"
+				},
+				"levelName": {
+					"type": "string"
+				},
+				"classificationKey": {
+					"type": "string"
+				},
+				"setKey": {
+					"type": "string"
+				},
+				"provider": {
+					"type": "string"
+				},
+				"scheme": {
+					"type": "string"
+				},
+				"parent": {
+					"type": "string"
+				},
+				"updatedDateTime": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"children": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"code",
+				"name"
+			]
+		},
+		"fx": {
+			"type": "object",
+			"properties": {
+				"rate": {
+					"type": "number"
+				},
+				"base": {
+					"type": "string",
+					"format": "currency"
+				},
+				"term": {
+					"type": "string",
+					"format": "currency"
+				},
+				"provider": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"rate",
+				"base",
+				"term"
+			]
+		},
+		"fxSet": {
+			"type": "object",
+			"properties": {
+				"fxSource": {
+					"type": "string"
+				},
+				"referenceDate": {
+					"type": "string",
+					"format": "date"
+				},
+				"fx": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/fx"
+					}
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"rate",
+				"base",
+				"term"
+			]
+		},
+		"note": {
+			"type": "object",
+			"properties": {
+				"text": {
+					"type": "string"
+				},
+				"level": {
+					"type": "string",
+					"enum": [
+						"INFO",
+						"WARNING"
+					]
+				}
+			},
+			"additionalProperties": false
+		},
+		"taxRate": {
+			"type": "object",
+			"properties": {
+				"country": {
+					"type": "string",
+					"format": "country"
+				},
+				"provider": {
+					"type": "string"
+				},
+				"rate": {
+					"type": "number"
+				}
+			},
+			"additionalProperties": false
+		},
+		"pricingAnalytics": {
+			"type": "object",
+			"properties": {
+				"maturityDate": {
+					"type": "string",
+					"pattern": "(\\d{4}-[01]\\d|\\d{4}-[01]\\d-[0-3]\\d)"
+				},
+				"accruedInterest": {
+					"$ref": "reference.json#/definitions/money"
+				},
+				"accruedInterestShareClassCurrency": {
+					"$ref": "reference.json#/definitions/money"
+				},
+				"cashPaymentLocalCurrency": {
+					"$ref": "reference.json#/definitions/money"
+				},
+				"cashPaymentShareClassCurrency": {
+					"$ref": "reference.json#/definitions/money"
+				},
+				"convexity": {
+					"type": "number"
+				},
+				"coupon": {
+					"type": "number"
+				},
+				"couponFrequency": {
+					"type": "string"
+				},
+				"floatingCouponFrequency": {
+					"type": "string"
+				},
+				"macaulayDuration": {
+					"type": "number"
+				},
+				"modifiedDuration": {
+					"type": "number"
+				},
+				"adjustedModifiedDuration": {
+					"type": "number"
+				},
+				"durationWithoutCash": {
+					"type": "number"
+				},
+				"redemptionYield": {
+					"type": "number"
+				},
+				"yieldToWorst": {
+					"type": "number"
+				},
+				"timeToMaturity": {
+					"type": "number"
+				},
+				"countryOfIncorporation": {
+					"type": "string",
+					"format": "country"
+				},
+				"issuer": {
+					"type": "string"
+				},
+				"sector": {
+					"type": "string"
+				},
+				"jurisdiction": {
+					"type": "string"
+				},
+				"rating": {
+					"type": "string"
+				},
+				"providerCode": {
+					"type": "string"
+				},
+				"holdingType": {
+					"type": "string"
+				},
+				"dv01": {
+					"type": "number"
+				},
+				"OAS": {
+					"type": "number"
+				},
+				"commodityNotional": {
+					"type": "number"
+				},
+				"return": {
+					"type": "number"
+				},
+				"callFlag": {
+					"type": "number"
+				},
+				"putFlag": {
+					"type": "number"
+				},
+				"sinkType": {
+					"type": "number"
+				},
+				"subordinateType": {
+					"type": "number"
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}

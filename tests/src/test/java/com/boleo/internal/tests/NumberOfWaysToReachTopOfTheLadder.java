@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CoinChange {
+public class NumberOfWaysToReachTopOfTheLadder {
 
-    public static int[] getChange(int[] terms, int goal) {
+    public static int[] getNumberOfWays(int[] terms, int goal) {
         List<Integer> sortedTerms = Arrays.stream(terms).boxed().distinct().sorted().collect(Collectors.toList());
 
         Map<Integer, Node> nodes = new HashMap<>();
@@ -15,7 +15,7 @@ public class CoinChange {
         Stack<Integer> stack = new Stack<>();
         stack.push(goal);
 
-        Node zero = new Node(0, 0);
+        Node zero = new Node(0, 1);
         nodes.put(0, zero);
 
         List<Integer> children = new ArrayList<>();
@@ -49,19 +49,17 @@ public class CoinChange {
             }
             System.out.println(nodeValue + " : " + children);
             if (finished) {
-                int minChild = -1;
-                int minSteps = -1;
+                int numberOfWays = 1;
+                List<Node> childrenNodes = new ArrayList<>();
                 for (Integer child : children) {
                     Node childNode = nodes.get(child);
-                    if (minSteps < 0 || childNode.getNumberOfSteps() < minSteps) {
-                        minSteps = childNode.getNumberOfSteps();
-                        minChild = child;
-                    }
+                    childrenNodes.add(childNode);
+                    numberOfWays = numberOfWays + childNode.getNumberOfWays();
                 }
-                Node node = new Node(nodeValue, minSteps + 1);
-                node.getChildren().add(nodes.get(minChild));
+                Node node = new Node(nodeValue, numberOfWays);
+                node.children.addAll(childrenNodes);
                 nodes.put(nodeValue, node);
-                //System.out.println(node);
+                System.out.println(node);
                 stack.pop();
             }
         }
@@ -69,31 +67,24 @@ public class CoinChange {
         if (node == null) {
             return null;
         }
-
-        List<Integer> result = new ArrayList<>();
-        while (!node.getChildren().isEmpty()) {
-            Node child = node.getChildren().get(0);
-            result.add(node.getValue() - child.getValue());
-            node = child;
-        }
-
-        return result.stream().mapToInt(i -> i).toArray();
+        System.out.println("Number of ways - " + node.numberOfWays);
+        return null;
     }
 
     @Test
     void figureOutTerms() {
-        int[] terms = new int[]{1,2,5,10,20,50};
-        System.out.println(Arrays.toString(getChange(terms, 97)));
+        int[] terms = new int[]{2, 3};
+        System.out.println(Arrays.toString(getNumberOfWays(terms, 6)));
     }
 
     private static class Node {
         private final int value;
         private final List<Node> children;
-        private final int numberOfSteps;
+        private final int numberOfWays;
 
-        private Node(int value, int numberOfSteps) {
+        private Node(int value, int numberOfWays) {
             this.value = value;
-            this.numberOfSteps = numberOfSteps;
+            this.numberOfWays = numberOfWays;
             this.children = new ArrayList<>();
         }
 
@@ -102,11 +93,11 @@ public class CoinChange {
         }
 
         public List<Node> getChildren() {
-            return children;
+             return children;
         }
 
-        public int getNumberOfSteps() {
-            return numberOfSteps;
+        public int getNumberOfWays() {
+            return numberOfWays;
         }
 
         @Override
@@ -114,7 +105,7 @@ public class CoinChange {
             return "Node{" +
                     "value=" + value +
                     ", children=" + children +
-                    ", numberOfSteps=" + numberOfSteps +
+                    ", numberOfWays=" + numberOfWays +
                     '}';
         }
 
@@ -128,7 +119,7 @@ public class CoinChange {
 
         @Override
         public int hashCode() {
-            return Objects.hash(value, children, numberOfSteps);
+            return Objects.hash(value, children, numberOfWays);
         }
     }
 }

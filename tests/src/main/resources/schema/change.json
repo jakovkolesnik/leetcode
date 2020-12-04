@@ -1,0 +1,26 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"id": "change.json",
+	"title" : "Ultumus client schema change data types",
+	"description" : "Schema used to document and validate Ultumus index change outbound API data",
+	"definitions": {
+		"changeType": { 
+			"type": "string", 
+			"enum": [ "ADDITION", "DELETION", "CHANGE", "DIVIDEND", "DIVISOR", "MARKET_VALUE" ] 
+		},
+		"changeStatus": { 
+			"type": "string", 
+			"enum": [ "EXPECTED", "CONFIRMED" ] 
+		},
+		"changedValue": { 
+			"type": "object", 
+			"properties": {
+				"name":	{ "type": "string" },
+				"impacting": { "type": "boolean" },
+				"oldValue":	{ "type": "string" },
+				"newValue":	{ "type": "string" }
+			},
+			"additionalProperties": false
+		}
+	}
+}

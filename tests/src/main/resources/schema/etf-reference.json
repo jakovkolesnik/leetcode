@@ -1,0 +1,325 @@
+{
+	"$schema":		"http://json-schema.org/draft-07/schema",
+	"id":			"etf-reference.json",
+	"title" :		"Ultumus ETF client schema",
+	"description":	"Schema used to document and validate Ultumus ETF outbound API data",
+	"definitions": {
+		"promoter": {
+			"type": "object",
+			"properties": {
+				"lei": { "type": "string", "format": "LEI" },
+				"previousLeis": { "type": "array", "items": { "type": "string", "format": "LEI" }},
+				"shortName": { "type": "string" },
+				"fullName": { "type": "string" },
+				"jurisdiction": { "type": "string", "format": "country" },
+				"headquartersAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalEntityStatus": { "type": "string" },
+				"parent": { "$ref": "reference.json#/definitions/legalEntity" },
+				"registrationLastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationNextRenewal": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationStatus": {
+					"type": "string"
+				},
+				"registrationValidationSources": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"umbrella": {
+			"type": "object",
+			"properties": {
+				"lei": { "type": "string", "format": "LEI" },
+				"previousLeis": { "type": "array", "items": { "type": "string", "format": "LEI" }},
+				"shortName": { "type": "string" },
+				"fullName": { "type": "string" },
+				"jurisdiction": { "type": "string", "format": "country" },
+				"headquartersAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalEntityStatus": { "type": "string" },
+				"marketingName": { "type": "string" },
+				"registrationLastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationNextRenewal": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationStatus": {
+					"type": "string"
+				},
+				"registrationValidationSources": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"fund": {
+			"type": "object",
+			"properties": {
+				"lei": { "type": "string", "format": "LEI" },
+				"previousLeis": { "type": "array", "items": { "type": "string", "format": "LEI" }},
+				"shortName": { "type": "string" },
+				"fullName": { "type": "string" },
+				"jurisdiction": { "type": "string", "format": "country" },
+				"headquartersAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalAddress": { "$ref": "reference.json#/definitions/address" },
+				"legalEntityStatus": { "type": "string" },
+				"securityType": { "type": "string", "enum": ["ETF","ETC","ETP","ETN","ETMF"] },
+				"underlyingAssetType": { "type": "string", "enum": ["Equity", "Fixed Income", "Mixed", "Alternative", "Currency", "Commodities", "Futures", "Real Estate" ] },
+				"underlyingDuration": { "type": "string", "enum": ["Ultrashort", "Short","Medium","Long", "Variable"] },
+				"domicility":	{ "type": "string", "format": "country" },
+				"domicilityRegion":	{ "type": "string" },
+				"domicilitySubRegion":	{ "type": "string" },
+				"baseCurrency":	{ "type": "string", "format": "currency" },
+				"fiscalYearEnd":{ "type": "string", "pattern": "\\d{2}-\\d{2}" },
+				"vaulting":		{ "type": "string", "format": "country" },
+				"investmentManager": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"trustee": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"lendingAgent": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"custodian": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"managementCompany": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"administrator": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"auditor": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"advisor": { "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"legalForm":	{ "type": "string" },
+				"fundOfFunds":	{ "type": "boolean" },
+				"passive":		{ "type": "boolean" },
+				"securitiesLending":	{ "type": "boolean" },
+				"ucits":		{ "type": "boolean" },
+				"suspended":	{ "type": "boolean" },
+				"classification": {
+					"type": "object",
+					"properties": {
+						"exposure":			{ "type": "string", "enum": ["Country", "Regional", "Broad"] },
+						"exposureRegion":	{ "type": "string" },
+						"exposureCountry":	{ "type": "string", "format": "country" },
+						"developmentLevel":	{ "type": "string", "enum": ["Mixed", "Emerging", "Developed", "Frontier"] },
+						"sector":			{ "type": "string" },
+						"subSector":		{ "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				"replication": {
+					"type": "object",
+					"properties": {
+						"type":		{ "type": "string" },
+						"method":	{ "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				"specialAsset": { "type": "array", "items": { "type": "string" }},
+				"registrationLastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationNextRenewal": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"registrationStatus": {
+					"type": "string"
+				},
+				"registrationValidationSources": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"etfCashOrInKindOrder": {
+			"type": "object",
+			"properties": {
+				"cutOffTime":	{ "type": "string", "format": "partial-time" },
+				"resolvedCutOffTime":	{ "type": "string", "format": "time" },
+				"settlementDays":	{ "type": "number" },
+				"basketSize":	{ "type": "number" },
+				"fixedFee":		{ "type": "number" },
+				"variableFee":	{ "type": "number" },
+				"totalFeeBps":	{ "type": "number" }
+			},
+			"additionalProperties": false
+		},
+		"etfCreationOrRedemptionOrder": {
+			"type": "object",
+			"properties": {
+				"prefunding": { "type": "boolean" },
+				"orderOpenTime": { "type": "string", "format": "partial-time"  },
+				"resolvedOrderOpenTime":	{ "type": "string", "format": "time" },
+				"cash":		{ "$ref": "#/definitions/etfCashOrInKindOrder" },
+				"inKind":	{ "$ref": "#/definitions/etfCashOrInKindOrder" },
+				"slippageFeeCap":	{ "type": "number" },
+				"taxAmountBps":	{ "type": "number" }
+			},
+			"additionalProperties": false
+		},
+		"shareClass": {
+			"type": "object",
+			"properties": {
+				"id":			{ "type": "string" },
+				"shortName":    { "type": "string" },
+				"fullName":     { "type": "string" },
+				"alternativeName":  { "type": "string" },
+				"assetType":    { "type": "string" },
+				"underlyingAssetClass": { "type": "string" },
+				"gicsCode":     { "type": "string" },
+				"currency":     { "type": "string" },
+				"domicility":   { "type": "string" },
+				"countryOfIncorporation": { "type": "string" },
+				"jurisdiction": { "type": "string" },
+				"primaryBbg":     { "type": "string" },
+				"ter":     { "type": "number" },
+				"transactionFee":     { "type": "number" },
+				"identifiers":  { "$ref": "reference.json#/definitions/identifiers" },
+				"inavIdentifiers":  { "$ref": "reference.json#/definitions/identifiers" },
+				"primary": 		{ "type": "boolean" },
+				"aumContribution":	{ "type": "string" },
+				"ICSDIssuance":	{ "type": "boolean" },
+				"hedged":			{ "type": "boolean" },
+				"hedgeFrequency":	{ "type": "string" },
+				"launchDate": 		{ "type": "string", "format": "date" },
+				"liquidatedDate":	{ "type": "string", "format": "date" },
+				"liquidated":	{ "type": "boolean" },
+				"mergerDate":	{ "type": "string", "format": "date" },
+				"receivingIsin":		{ "type": "string", "format": "ISIN" },
+				"transferringIsin":		{ "type": "string", "format": "ISIN" },
+				"inceptionNav":		{ "type": "number" },
+				"inceptionPrice":		{ "type": "number" },
+				"calculationUnitSize":		{ "type": "number" },
+				"indexSwapSpreadBps":		{ "type": "number" },
+				"targetLeverageRatio":	{ "type": "number" },
+				"ocf":					{ "type": "number" },
+				"short": 				{ "type": "boolean" },
+				"marketMaker":	 		{ "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"collateralManager":	{ "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"authorizedParticipant":{ "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"swapCounterparty":		{ "type": "array", "items": { "$ref": "reference.json#/definitions/legalEntity" } },
+				"spread":		{ "type": "array", "items": { "$ref": "reference.json#/definitions/spread" } },
+				"distribution": {
+					"type": "object",
+					"properties": {
+						"type":			{ "type": "string" },
+						"frequency":	{ "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				"templateName":	{ "type": "string" },
+				"tax": {
+					"type": "object",
+					"properties": {
+						"ukReporting": { "type": "boolean" },
+						"swissReporting": { "type": "boolean" },
+						"austrianReporting": { "type": "boolean" },
+						"frenchPeaPlan": { "type": "boolean" },
+						"isa": { "type": "boolean" },
+						"sipp": { "type": "boolean" },
+						"ucitsEligible": { "type": "boolean" },
+						"germanTaxCategory": { "type": "string" },
+						"euSavingsDirective": { "type": "string" },
+						"ukDistributing": { "type": "boolean" }
+					},
+					"additionalProperties": false
+				},
+				"benchmark": { "$ref": "reference.json#/definitions/index" },
+				"orders": {
+					"type": "object",
+					"properties": {
+						"cash":		{ "type": "boolean" },
+						"kind":		{ "type": "boolean" },
+						"orderLagDays":		{ "type": "number" },
+						"orderTimeZone":	{ "type": "string" },
+						"orderCurrency":	{ "type": "string", "format": "currency" },
+						"creation":		{ "$ref": "#/definitions/etfCreationOrRedemptionOrder" },
+						"redemption":	{ "$ref": "#/definitions/etfCreationOrRedemptionOrder" },
+						"orderFeeCurrency": { "type": "string", "format": "currency" }
+					},
+					"additionalProperties": false
+				},
+				"calculation": {
+					"type": "object",
+					"properties": {
+						"navCashType":	{ "type": "string" }
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"etf": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"dataSource": {
+					"type": "string"
+				},
+				"promoter": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{
+								"$ref": "#/definitions/promoter"
+							},
+							{
+								"$ref": "reference.json#/definitions/link"
+							}
+						]
+					}
+				},
+				"umbrella": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{ "$ref": "#/definitions/umbrella" },
+							{ "$ref": "reference.json#/definitions/link" }
+						]
+					}
+				},
+				"fund": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{ "$ref": "#/definitions/fund" },
+							{ "$ref": "reference.json#/definitions/link" }
+						]
+					}
+				},
+				"shareClass": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{ "$ref": "#/definitions/shareClass" },
+							{ "$ref": "reference.json#/definitions/link" }
+						]
+					}
+				},
+				"listing": {
+					"type": "array",
+					"items": {
+						"anyOf": [
+							{ "$ref": "reference.json#/definitions/securityListing" },
+							{ "$ref": "reference.json#/definitions/link" }
+						]
+					}
+				}
+			}
+		}
+	}
+}
+

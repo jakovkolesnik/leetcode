@@ -1,0 +1,94 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"id": "etf-gen-api-doc.json",
+	"title" : "Ultumus client schema response envelope",
+	"description" : "Schema used to document and validate Ultumus outbound API data",
+	"type": "object",
+	"definitions": {
+		"analystNote": {
+			"type": "object",
+			"properties": {
+				"note": { "type": "string" },
+				"updatedDate": { "type": "string", "format": "date-time" }
+			},
+			"additionalProperties": false
+		},
+		"disbursement": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": { "type": "string", "format": "date-time" },
+				"description": { "type": "string" },
+				"href": { "type": "string", "format": "uri" },
+				"type": { "type": "string" },
+				"default": { "type": "boolean" },
+				"amount": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"numberOfSharesHeld": { "type": "number" },
+				"numberOfSharesReceived": { "type": "number" },
+				"fxDate": { "type": "string", "format": "date" }
+			},
+			"additionalProperties": false
+		},
+		"dateRule": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": { "type": "string", "format": "date-time" },
+				"description": { "type": "string" },
+				"href": { "type": "string", "format": "uri" },
+				"ISIN": { "type": "string", "format": "ISIN" },
+				"frequency": { "type": "string" },
+				"field": { "type": "string" },
+				"rule": { "type": "string" },
+				"confidence": { "type": "number" },
+				"position": { "type": "number" }
+			},
+			"additionalProperties": false
+		},
+		"dividendForecast": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": { "type": "string", "format": "date-time" },
+				"description": { "type": "string" },
+				"href": { "type": "string", "format": "uri" },
+				"ISIN": { "type": "string", "format": "ISIN" },
+				"fiscalYear": { "type": "number" },
+				"frequency": { "type": "string" },
+				"flag": { "type": "string" },
+				"status": { "type": "string" },
+				"declarationDate": { "type": "string", "format": "date" },
+				"exDivDate": { "type": "string", "format": "date" },
+				"recordDate": { "type": "string", "format": "date" },
+				"payDate": { "type": "string", "format": "date" },
+				"periodEndDate": { "type": "string", "format": "date" },
+				"yearEndDate": { "type": "string", "format": "date" },
+				"amount": { "type": "array", "items": { "$ref": "reference.json#/definitions/money" } },
+				"disbursements": { "type": "array", "items": { "$ref": "#/definitions/disbursement" } }
+			},
+			"additionalProperties": false
+		},
+		"securityDividends": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": { "type": "string", "format": "date-time" },
+				"description": { "type": "string" },
+				"href": { "type": "string", "format": "uri" },
+				"ISIN": { "type": "string", "format": "ISIN" },
+				"refListingId": { "type": "string" },
+				"assetType": { "type": "string" },
+				"shortName": { "type": "string" },
+				"fullName": { "type": "string" },
+				"primaryListingCountry": { "type": "string", "format": "country" },
+				"primaryListingTicker": { "type": "string" },
+				"companyName": { "type": "string" },
+				"region": { "type": "string" },
+				"dividendPolicy": { "type": "string" },
+				"dividendPolicyUpdatedDate": { "type": "string", "format": "date-time" },
+				"dividends": { "type": "array", "items": { "$ref": "#/definitions/dividendForecast" } },
+				"analystNotes": { "type": "array", "items": { "$ref": "#/definitions/analystNote" } },
+				"dateRules": { "type": "array", "items": { "$ref": "#/definitions/dateRule" } },
+				"updatedDateTime": { "type": "string", "format": "date-time" }
+			},
+			"additionalProperties": false,
+			"required": ["ISIN"]
+		}
+	}
+}

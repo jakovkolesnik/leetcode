@@ -1,0 +1,162 @@
+{
+	"$schema":		"http://json-schema.org/draft-07/schema",
+	"id":			"index-composition.json",
+	"title" :		"Ultumus Index client schema",
+	"description" :	"Schema used to document and validate Ultumus Index composition outbound API data",
+	"definitions": {
+		"cash": {
+			"type": "object",
+			"properties": {
+				"heldCash": { "type": "array", "items": { "$ref": "#/definitions/dividendCash" } },
+				"investingCash": { "type": "array", "items": { "$ref": "#/definitions/dividendCash" } },
+				"totalCash": { "$ref": "reference.json#/definitions/money" },
+				"totalHeldCash": { "$ref": "reference.json#/definitions/money" },
+				"totalInvestingCash": { "$ref": "reference.json#/definitions/money" }
+			},
+			"additionalProperties": false
+		},
+		"dividendCash": {
+			"type": "object",
+			"properties": {
+				"xdDate": { "type": "string", "format": "date" },
+				"reinvestmentDate": { "type": "string", "format": "date" },
+				"cashAmount": { "$ref": "reference.json#/definitions/money" },
+				"ULTID": { "type": "number" },
+				"description": { "type": "string" }
+			},
+			"additionalProperties": false
+		},
+		"compositionAsset": {
+			"type": "object",
+			"properties": {
+				"lastUpdated": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"description": {
+					"type": "string"
+				},
+				"href": {
+					"type": "string",
+					"format": "uri"
+				},
+				"security": { "$ref": "reference.json#/definitions/securityListing" },
+				"weight": { "$ref": "reference.json#/definitions/numericDatum" },
+				"sharesOutstanding": { "$ref": "reference.json#/definitions/numericDatum" },
+				"sharesInIndex": { "$ref": "reference.json#/definitions/numericDatum" },
+				"dailyReturn": { "$ref": "reference.json#/definitions/numericDatum" },
+				"price": { "$ref": "reference.json#/definitions/money" },
+				"assetClass": { "type": "string" },
+				"officialClosePrice": { "$ref": "reference.json#/definitions/money" },
+				"cleanPrice": { "$ref": "reference.json#/definitions/money" },
+				"dirtyPrice": { "$ref": "reference.json#/definitions/money" },
+				"closePrice": { "$ref": "reference.json#/definitions/money" },
+				"distribution": { "$ref": "reference.json#/definitions/money" },
+				"divAdjPrice": { "$ref": "reference.json#/definitions/money" },
+				"netDivAdjPrice": { "$ref": "reference.json#/definitions/money" },
+				"fullyAdjPrice": { "$ref": "reference.json#/definitions/money" },
+				"grossDividend": { "$ref": "reference.json#/definitions/money" },
+				"netDividend": { "$ref": "reference.json#/definitions/money" },
+				"notional": { "$ref": "reference.json#/definitions/money" },
+				"notionalForWeight": { "$ref": "reference.json#/definitions/money" },
+				"providerPriceInIndexCcy": { "$ref": "reference.json#/definitions/money" },
+				"fxRate": { "$ref": "reference.json#/definitions/numericDatum" },
+				"taxRate": { "$ref": "reference.json#/definitions/numericDatum" },
+				"corporateActions": { "type": "array", "items": { "$ref": "reference.json#/definitions/corporateAction" } },
+				"factors": {
+					"type": "object",
+					"properties": {
+					},
+					"additionalProperties": true
+				},
+				"pricingAnalytics": { "$ref": "reference.json#/definitions/pricingAnalytics" }
+			},
+			"additionalProperties": false,
+			"required" : [ "security" ]
+		},
+		"position": {
+			"type": "object",
+			"properties": {
+				"type": { "type": "string" },
+				"indexCurrency": { "type": "string", "format": "currency" },
+				"referenceDate": { "type": "string", "format": "date" },
+				"indexValue": { "$ref": "reference.json#/definitions/numericDatum" },
+				"calculatedIndexValue": { "$ref": "reference.json#/definitions/numericDatum" },
+				"dividendIndexPoints": { "$ref": "reference.json#/definitions/numericDatum" },
+				"divisor": { "$ref": "reference.json#/definitions/numericDatum" },
+				"dailyReturn": { "$ref": "reference.json#/definitions/numericDatum" },
+				"interestRateReturn": { "$ref": "reference.json#/definitions/numericDatum" },
+				"marketValue": { "$ref": "reference.json#/definitions/money" },
+				"numberOfAssets": { "type": "number" },
+				"cash":	{ "$ref": "#/definitions/cash" },
+				"cashBreakdown":	{ "type": "array", "items": { "$ref": "#/definitions/cash" } },
+				"assets": {
+					"type": "array",
+					"items": { "$ref": "#/definitions/compositionAsset" }
+				},
+				"assetsRef":	{ "$ref": "reference.json#/definitions/link" },
+				"pricingAnalytics": { "$ref": "reference.json#/definitions/pricingAnalytics" }
+			},
+			"required" : [ "type", "numberOfAssets", "referenceDate"  ],
+			"additionalProperties": false
+		},
+		"positions": {
+			"type": "object",
+			"properties": {
+				"close":	{ "$ref": "#/definitions/position" },
+				"open":		{ "$ref": "#/definitions/position" },
+				"postClose":	{ "$ref": "#/definitions/position" }
+			},
+			"additionalProperties": false
+		},
+		"variantPosition": {
+			"type": "object",
+			"properties": {
+				"index":	{
+					"type": "object",
+					"properties": {
+						"description": { "type": "string" },
+						"identifiers": { "$ref": "reference.json#/definitions/identifiers" }
+					},
+					"additionalProperties": false
+				},
+				"variantType": { "type": "string" },
+				"provider": { "type": "string" },
+				"currency":	{ "type": "string", "format": "currency" },
+				"priceDate": { "type": "string", "format": "date" },
+				"positions":		{ "$ref": "#/definitions/positions" }
+			},
+			"additionalProperties": false,
+			"required" : [ "currency" ]
+		},
+		"composition": {
+			"type": "object",
+			"properties": {
+				"index":	{
+					"anyOf": [
+						{ "$ref": "index-reference.json#/definitions/indexData" },
+						{ "$ref": "reference.json#/definitions/link" }
+					]
+				},
+				"variantType": { "type": "string" },
+				"provider": { "type": "string" },
+				"currency":	{ "type": "string", "format": "currency" },
+				"headerOnly": { "type" : "boolean" },
+				"TPlus": { "type": "boolean" },
+				"priceDate": { "type": "string", "format": "date" },
+				"fx": { "type": "array", "items": { "$ref": "reference.json#/definitions/fx" } },
+				"corporateAction": { "type": "array", "items": { "$ref": "reference.json#/definitions/corporateAction" } },
+				"positions":		{ "$ref": "#/definitions/positions" },
+				"variantPositions":		{ "type": "array", "items": { "$ref": "#/definitions/variantPosition" } },
+				"TPlusDates":	{ "type": "array", "items": { "$ref": "reference.json#/definitions/tPlusDetail" } },
+				"calculationNotes": {
+					"type": "array",
+					"items": { "$ref": "reference.json#/definitions/note" }
+				}
+			},
+			"additionalProperties": false,
+			"required" : [ "index" ]
+		}
+	}
+}
+
