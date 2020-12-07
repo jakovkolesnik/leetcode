@@ -18,7 +18,7 @@ public class HackerRank {
         String input = in.toLowerCase();
         int median  = input.length() / 2;
         System.out.println(median);
-        for (int i = 0; i < median; i++){
+        for (int i = 0; i <= median; i++){
             if (input.charAt(i) != input.charAt(input.length() - i - 1)){
                 System.out.println("False");
                 break;
